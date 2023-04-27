@@ -1,5 +1,5 @@
 mybatis:
-  type-aliases-package: com.ssafy.*.model
+  type-aliases-package: com.ssafy.enjoytrip.*.model
   mapper-locations: mapper/**.xml
 
 server:
