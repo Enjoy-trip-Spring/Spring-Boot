@@ -8,4 +8,6 @@ public interface MemberService {
 
 	Member login(Member member) throws Exception;
 
+	Member getMemberInfo(String userId) throws Exception;
+
 }

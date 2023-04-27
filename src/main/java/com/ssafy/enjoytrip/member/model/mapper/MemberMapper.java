@@ -13,4 +13,6 @@ public interface MemberMapper {
 
 	Member loginCheckMember(Member member) throws SQLException;
 
+	Member selectMemberInfo(String userId) throws SQLException;
+
 }

@@ -24,4 +24,11 @@
 		where user_id = #{userId} and user_pwd = #{userPwd}
 	</select>
 	
+	<!-- Member selectMemberInfo(String userId) throws SQLException; -->
+	<select id="selectMemberInfo" parameterType="member" resultMap="memberMap">
+		select user_id, user_name, email, phone
+		from member
+		where user_id = #{userId}
+	</select>
+	
 </mapper>

@@ -3,6 +3,7 @@ package com.ssafy.enjoytrip.member.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -89,9 +90,17 @@ public class MemberController {
 	/**
 	 * myPage이동
 	 * @return
+	 * @throws Exception 
 	 */
 	@GetMapping("myPage")
-	public String myPage() {
+	public String myPage(HttpSession session, Model model) throws Exception {
+		Member memberInfo = (Member) session.getAttribute("userInfo");
+		if (memberInfo == null) {
+			return "redirect:/member/login";
+		}
+		String userId = memberInfo.getUserId();
+		memberInfo = memberService.getMemberInfo(userId);
+		model.addAttribute("memberInfo", memberInfo);
 		return "/member/myPage";
 	}
 	
@@ -102,7 +111,7 @@ public class MemberController {
 	 */
 	@PutMapping("myPage")
 	public String myPage(Member member) {
-		return "redirect:/member//myPage";
+		return "redirect:/member/myPage";
 	}
 	
 	/**

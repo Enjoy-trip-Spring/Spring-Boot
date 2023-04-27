@@ -28,4 +28,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.loginCheckMember(member);
 	}
 
+	@Override
+	public Member getMemberInfo(String userId) throws Exception {
+		return memberMapper.selectMemberInfo(userId);
+	}
+
 }
