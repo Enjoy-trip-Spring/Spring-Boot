@@ -31,4 +31,13 @@
 		where user_id = #{userId}
 	</select>
 	
+	<!-- Member updateMemberInfo(Member member) throws SQLException; -->
+	<update id="updateMemberInfo" parameterType="member">
+		update member
+		set user_name = #{userName},
+			email = #{email},
+			phone = #{phone}
+		where user_id = #{userId}
+	</update>
+	
 </mapper>

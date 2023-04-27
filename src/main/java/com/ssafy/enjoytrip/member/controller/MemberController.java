@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ssafy.enjoytrip.member.model.Member;
@@ -66,10 +65,10 @@ public class MemberController {
 	 */
 	@PostMapping("login")
 	public String login(Member member, HttpSession session) throws Exception {
-		Member userInfo = memberService.login(member);
-		System.out.println(userInfo);
-		if (member != null) {
-			session.setAttribute("userInfo", userInfo);
+		Member memberInfo = memberService.login(member);
+		System.out.println(memberInfo);
+		if (memberInfo != null) {
+			session.setAttribute("memberInfo", memberInfo);
 			return "redirect:/";
 		} else {
 			return "redirect:/member/login";
@@ -94,24 +93,47 @@ public class MemberController {
 	 */
 	@GetMapping("myPage")
 	public String myPage(HttpSession session, Model model) throws Exception {
-		Member memberInfo = (Member) session.getAttribute("userInfo");
-		if (memberInfo == null) {
+		Member member = (Member) session.getAttribute("memberInfo");
+		if (member == null) {
 			return "redirect:/member/login";
 		}
-		String userId = memberInfo.getUserId();
-		memberInfo = memberService.getMemberInfo(userId);
-		model.addAttribute("memberInfo", memberInfo);
+		String userId = member.getUserId();
+		member = memberService.getMemberInfo(userId);
+		model.addAttribute("member", member);
 		return "/member/myPage";
 	}
 	
 	/**
-	 * myPage에서 내 정보 수정
+	 * myPage에서 정보 수정 페이지로 이동
 	 * @param member
 	 * @return
 	 */
-	@PutMapping("myPage")
-	public String myPage(Member member) {
-		return "redirect:/member/myPage";
+	@GetMapping("myPageModify")
+	public String myPageModify(HttpSession session, Model model) throws Exception {
+		Member member = (Member) session.getAttribute("memberInfo");
+		if (member == null) {
+			return "redirect:/member/login";
+		}
+		String userId = member.getUserId();
+		member = memberService.getMemberInfo(userId);
+		model.addAttribute("member", member);
+		return "/member/myPageModify";
+	}
+	
+
+	/**
+	 * 정보 수정 후, myPage로 이동
+	 * @param member
+	 * @return
+	 */
+	@PostMapping("myPageModify")
+	public String myPageModify(Member member, Model model) throws Exception {
+		member = memberService.myPageModify(member);
+		if (member != null) {
+			return "redirect:/member/myPage";			
+		} else {
+			return "redirect:/member/myPageModify";
+		}
 	}
 	
 	/**

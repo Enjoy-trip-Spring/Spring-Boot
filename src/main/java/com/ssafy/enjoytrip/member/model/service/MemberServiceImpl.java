@@ -33,4 +33,14 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.selectMemberInfo(userId);
 	}
 
+	@Override
+	public Member myPageModify(Member member) throws Exception {
+		int success =  memberMapper.updateMemberInfo(member);
+		if (success == 1) {
+			return member;
+		} else {
+			return null;
+		}
+	}
+
 }

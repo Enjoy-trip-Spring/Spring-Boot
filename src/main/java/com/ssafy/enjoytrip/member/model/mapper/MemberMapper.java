@@ -15,4 +15,6 @@ public interface MemberMapper {
 
 	Member selectMemberInfo(String userId) throws SQLException;
 
+	int updateMemberInfo(Member member) throws SQLException;
+
 }

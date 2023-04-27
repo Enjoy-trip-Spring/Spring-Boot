@@ -10,4 +10,6 @@ public interface MemberService {
 
 	Member getMemberInfo(String userId) throws Exception;
 
+	Member myPageModify(Member member) throws Exception;
+
 }
