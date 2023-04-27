@@ -10,4 +10,18 @@
 		values(#{userId}, #{userPwd}, #{userName}, #{email}, #{phone})
 	</insert>
 	
+	<resultMap type="member" id="memberMap">
+		<result column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+		<result column="email" property="email"/>
+		<result column="phone" property="phone"/>
+	</resultMap>
+	
+	<!-- Member loginCheckMember(Member member) throws SQLException; -->
+	<select id="loginCheckMember" parameterType="member" resultMap="memberMap">
+		select user_id, user_name, email, phone
+		from member
+		where user_id = #{userId} and user_pwd = #{userPwd}
+	</select>
+	
 </mapper>

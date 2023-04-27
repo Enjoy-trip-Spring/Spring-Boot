@@ -61,10 +61,18 @@ public class MemberController {
 	 * @param member
 	 * @param session
 	 * @return
+	 * @throws Exception 
 	 */
 	@PostMapping("login")
-	public String login(Member member, HttpSession session) {
-		return "redirect:/";
+	public String login(Member member, HttpSession session) throws Exception {
+		Member userInfo = memberService.login(member);
+		System.out.println(userInfo);
+		if (member != null) {
+			session.setAttribute("userInfo", userInfo);
+			return "redirect:/";
+		} else {
+			return "redirect:/member/login";
+		}
 	}
 	
 	/**
@@ -74,6 +82,7 @@ public class MemberController {
 	 */
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
+		session.invalidate();
 		return "redirect:/";
 	}
 	

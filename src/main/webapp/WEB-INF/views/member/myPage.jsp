@@ -9,6 +9,8 @@
 <body>
 	<div align="center">
 		<h1>MyPage 페이지</h1>
+	
+		<h3>${userInfo.userName}님, 안녕하세요!</h3>
 	</div>
 </body>
 </html>

@@ -11,4 +11,6 @@ public interface MemberMapper {
 
 	int insertMember(Member member) throws SQLException;
 
+	Member loginCheckMember(Member member) throws SQLException;
+
 }
