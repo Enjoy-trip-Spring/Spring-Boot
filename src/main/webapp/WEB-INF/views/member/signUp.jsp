@@ -11,14 +11,14 @@
 		<h1>회원가입 페이지</h1>
 	
 		<form action="signUp" method="post">
-			<label for="userName"> 이름 </label>
-			<input type="text" name="userName" id="userName"/><br>
-			<label for="userId"> 아이디 </label>
-			<input type="text" name="userId" id="userId"/><br>
-			<label for="userPwd"> 비밀번호 </label>
-			<input type="text" name="userPwd" id="userPwd"/><br>
-			<label for="userPwd2"> 비밀번호 확인</label>
-			<input type="text" name="userPwd2" id="userPwd2"/><br>
+			<label for="memberName"> 이름 </label>
+			<input type="text" name="memberName" id="memberName"/><br>
+			<label for="memberId"> 아이디 </label>
+			<input type="text" name="memberId" id="memberId"/><br>
+			<label for="memberPwd"> 비밀번호 </label>
+			<input type="text" name="memberPwd" id="memberPwd"/><br>
+			<label for="memberPwd2"> 비밀번호 확인</label>
+			<input type="text" name="memberPwd2" id="memberPwd2"/><br>
 			<label for="email"> 이메일 </label>
 			<input type="text" name="email" id="email"/><br>
 			<label for="phone"> 핸드폰 번호 </label>

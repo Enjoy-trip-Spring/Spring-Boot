@@ -11,10 +11,10 @@
 		<h1>로그인 페이지</h1>
 	
 		<form action="login" method="post">
-			<label for="userId"> 아이디 </label>
-			<input type="text" name="userId" id="userId"/><br>
-			<label for="userPwd"> 비밀번호 </label>
-			<input type="password" name="userPwd" id="userPwd"/><br>
+			<label for="memberId"> 아이디 </label>
+			<input type="text" name="memberId" id="memberId"/><br>
+			<label for="memberPwd"> 비밀번호 </label>
+			<input type="password" name="memberPwd" id="memberPwd"/><br>
 			<button>로그인</button>
 			<button type="reset">취소</button>
 		</form>

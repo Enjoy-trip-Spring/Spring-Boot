@@ -97,8 +97,8 @@ public class MemberController {
 		if (member == null) {
 			return "redirect:/member/login";
 		}
-		String userId = member.getUserId();
-		member = memberService.getMemberInfo(userId);
+		String memberId = member.getMemberId();
+		member = memberService.getMemberInfo(memberId);
 		model.addAttribute("member", member);
 		return "/member/myPage";
 	}
@@ -114,8 +114,8 @@ public class MemberController {
 		if (member == null) {
 			return "redirect:/member/login";
 		}
-		String userId = member.getUserId();
-		member = memberService.getMemberInfo(userId);
+		String memberId = member.getMemberId();
+		member = memberService.getMemberInfo(memberId);
 		model.addAttribute("member", member);
 		return "/member/myPageModify";
 	}
