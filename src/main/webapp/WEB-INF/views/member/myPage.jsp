@@ -10,16 +10,16 @@
 	<div align="center">
 		<h1>MyPage 페이지</h1>
 	
-		<h3>${memberInfo.userName}님, 안녕하세요!</h3>
+		<h3>${member.memberName}님, 안녕하세요!</h3>
 		
 		<table>
 			<tr>
 				<th>이름</th>
-				<td>${member.userName}</td>
+				<td>${member.memberName}</td>
 			</tr>
 			<tr>
 				<th>아이디</th>
-				<td>${member.userId}</td>
+				<td>${member.memberId}</td>
 			</tr>
 			<tr>
 				<th>이메일</th>
