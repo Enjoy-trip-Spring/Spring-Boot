@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,15 +44,39 @@ public class BoardController {
 //		Member member = (Member) session.getAttribute("userInfo");
 //		board.setUserId(member.getUserId());
 		
-		board.setUserId("1234");
+		board.setMemberId("1234");
 		boardService.writeBoard(board);
 		
 		return "redirect:/board/list";
 	}
 	
-	@GetMapping("/view")
-	public String view(@RequestParam int boardNo, Model model) {
+	@GetMapping("/view/{boardNo}")
+	public String view(@PathVariable int boardNo, Model model) throws Exception {
 		// 상세 페이지 접근 
+		Board board = boardService.getBoardByNo(boardNo);
+		boardService.updateHit(boardNo);
+		model.addAttribute("board", board);
 		return "board/view";
+	}
+	
+	@GetMapping("/modify/{boardNo}")
+	public String modify(@PathVariable int boardNo, Model model) throws Exception {
+		System.out.println(boardNo);
+		Board board = boardService.getBoardByNo(boardNo);
+		model.addAttribute("board", board);
+		return "board/modify";
+	}
+	
+	@PostMapping("/modify")
+	public String modify(Board board) throws Exception {
+		board.setMemberId("1234");
+		boardService.modifyBoard(board);
+		return "redirect:/board/list";
+	}
+	
+	@GetMapping("/delete/{boardNo}")
+	public String delete(@PathVariable int boardNo) throws Exception {
+		boardService.deleteBoard(boardNo);
+		return "redirect:/board/list";
 	}
 }

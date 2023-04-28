@@ -17,26 +17,56 @@
 	void deleteBoard(int boardNo) throws SQLException;
 	
 	// 상세
-	Board selectBoardByNo(int boardNo) throws SQLException;
+	Board selectBoard(int boardNo) throws SQLException;
+
+	void updateHit(int boardNo) throws SQLException;
 	 -->
 	
 	<resultMap type="board" id="boardMap">
 		<result column="board_no" property="boardNo" />
 		<result column="board_title" property="boardTitle" />
-		<result column="user_id" property="userId" />
+		<result column="member_id" property="memberId" />
 		<result column="hit" property="hit" />
 		<result column="create_date" property="createDate" />
 	</resultMap>
 	
+	<resultMap type="board" id="boardDetailMap" extends="boardMap">
+		<result column="board_content" property="boardContent" />
+	</resultMap>
+	
  	<select id="selectBoardAll" resultMap="boardMap">
-		SELECT board_no, board_title, user_id, user_id, hit, create_date
+		SELECT board_no, board_title, member_id, hit, create_date
 		  FROM board
 		 ORDER BY board_no desc
 	</select>
 	
 	<insert id="insertBoard" parameterType="board">
-		INSERT INTO board (user_id, board_title, board_content, hit, create_date)
-		VALUES (#{userId}, #{boardTitle}, #{boardContent}, 0, now())
+		INSERT INTO board (member_id, board_title, board_content, hit, create_date)
+		VALUES (#{memberId}, #{boardTitle}, #{boardContent}, 0, now())
 	</insert>
+	
+	<select id="selectBoard" parameterType="int" resultMap="boardDetailMap">
+		SELECT board_no, board_title, board_content, member_id, hit, create_date
+		  FROM board
+		 WHERE board_no = #{boardNo}
+	</select>
+	
+	<update id="updateHit" parameterType="int">
+		UPDATE board
+		   SET hit = hit + 1
+		 WHERE board_no = #{boardNo}
+	</update>
+	
+	<update id="updateBoard" parameterType="board">
+		UPDATE board
+		   SET board_title = #{boardTitle}, board_content = #{boardContent}
+		 WHERE board_no = #{boardNo}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE
+		  FROM board
+		 WHERE board_no = #{boardNo}
+	</delete>
 	
 </mapper>	

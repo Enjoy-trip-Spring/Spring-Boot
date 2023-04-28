@@ -10,4 +10,12 @@ public interface BoardService {
 
 	void writeBoard(Board board) throws Exception;
 
+	Board getBoardByNo(int boardNo) throws Exception;
+
+	void updateHit(int boardNo) throws Exception;
+
+	void modifyBoard(Board board) throws Exception;
+
+	void deleteBoard(int boardNo) throws Exception;
+
 }

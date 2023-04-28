@@ -29,4 +29,29 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.insertBoard(board);
 	}
 
+
+	@Override
+	public Board getBoardByNo(int boardNo) throws Exception {
+		return boardMapper.selectBoard(boardNo);
+	}
+
+
+	@Override
+	public void updateHit(int boardNo) throws Exception {
+		boardMapper.updateHit(boardNo);
+	}
+
+
+	@Override
+	public void modifyBoard(Board board) throws Exception {
+		boardMapper.updateBoard(board);
+		
+	}
+
+
+	@Override
+	public void deleteBoard(int boardNo) throws Exception {
+		boardMapper.deleteBoard(boardNo);
+	}
+
 }

@@ -9,25 +9,28 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>글 목록</h1>
+	<h1>상세 글 보기</h1>
 	<table>
 		<tr>
 			<th>글 번호</th>
 			<th>제 목</th>
 			<th>작성자</th>
 			<th>조회수</th>
+			<th>내용</th>
 			<th>작성 시간</th>
 		</tr>
-		<c:forEach var="board" items="${list}">
-			<tr>
-				<td>${board.boardNo}</td>
-				<!-- detail page link -->
-				<td><a href="view/${board.boardNo}" class="boardTitle"/>${board.boardTitle}</td>
-				<td>${board.memberId}</td>
-				<td>${board.hit}</td>
-				<td>${board.createDate}</td>
-			</tr>
-		</c:forEach>
+		<tr>
+			<td>${board.boardNo}</td>
+			<td>${board.boardTitle}</td>
+			<td>${board.memberId}</td>
+			<td>${board.hit}</td>
+			<td>${board.boardContent}</td>
+			<td>${board.createDate}</td>
+		</tr>
+
 	</table>
+	<a href="${root}/board/list">글 목록</a>
+	<a href="${root}/board/modify/${board.boardNo}" id="modify">글 수정</a>
+	<a href="${root}/board/delete/${board.boardNo}" id="delete">글 삭제</a>
 </body>
 </html>

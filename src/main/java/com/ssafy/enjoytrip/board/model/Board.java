@@ -4,7 +4,7 @@ public class Board {
 	private int boardNo;
 	private String boardTitle;
 	private String boardContent;	
-	private String userId;	
+	private String memberId;	
 	private int hit;
 	private String createDate;	
 	private int boardLike;	
@@ -28,11 +28,11 @@ public class Board {
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
-	public String getUserId() {
-		return userId;
+	public String getMemberId() {
+		return memberId;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 	public int getHit() {
 		return hit;
@@ -57,5 +57,12 @@ public class Board {
 	}
 	public void setBoardCommentCnt(int boardCommentCnt) {
 		this.boardCommentCnt = boardCommentCnt;
+	}
+	@Override
+	public String toString() {
+		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
+				+ ", memberId=" + memberId + ", hit=" + hit + ", createDate=" + createDate + ", boardLike=" + boardLike
+				+ ", boardCommentCnt=" + boardCommentCnt + "]";
 	}	
+	
 }

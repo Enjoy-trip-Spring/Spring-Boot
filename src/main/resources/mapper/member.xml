@@ -6,38 +6,38 @@
 
 	<!-- int insertMember(Member member) throws SQLException; -->
 	<insert id="insertMember" parameterType="member">
-		insert into member(user_id, user_pwd, user_name, email, phone)
-		values(#{userId}, #{userPwd}, #{userName}, #{email}, #{phone})
+		insert into member(member_id, member_pwd, member_name, email, phone)
+		values(#{memberId}, #{memberPwd}, #{memberName}, #{email}, #{phone})
 	</insert>
 	
 	<resultMap type="member" id="memberMap">
-		<result column="user_id" property="userId"/>
-		<result column="user_name" property="userName"/>
+		<result column="member_id" property="memberId"/>
+		<result column="member_name" property="memberName"/>
 		<result column="email" property="email"/>
 		<result column="phone" property="phone"/>
 	</resultMap>
 	
 	<!-- Member loginCheckMember(Member member) throws SQLException; -->
 	<select id="loginCheckMember" parameterType="member" resultMap="memberMap">
-		select user_id, user_name, email, phone
+		select member_id, member_name, email, phone
 		from member
-		where user_id = #{userId} and user_pwd = #{userPwd}
+		where member_id = #{memberId} and member_pwd = #{memberPwd}
 	</select>
 	
 	<!-- Member selectMemberInfo(String userId) throws SQLException; -->
 	<select id="selectMemberInfo" parameterType="member" resultMap="memberMap">
-		select user_id, user_name, email, phone
+		select member_id, member_name, email, phone
 		from member
-		where user_id = #{userId}
+		where member_id = #{memberId}
 	</select>
 	
 	<!-- Member updateMemberInfo(Member member) throws SQLException; -->
 	<update id="updateMemberInfo" parameterType="member">
 		update member
-		set user_name = #{userName},
+		set member_name = #{memberName},
 			email = #{email},
 			phone = #{phone}
-		where user_id = #{userId}
+		where member_id = #{memberId}
 	</update>
 	
 </mapper>

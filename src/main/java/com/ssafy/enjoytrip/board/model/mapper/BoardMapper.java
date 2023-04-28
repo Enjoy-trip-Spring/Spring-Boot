@@ -15,12 +15,15 @@ public interface BoardMapper {
 	// 등록
 	void insertBoard(Board board) throws SQLException;
 	
+	
+	Board selectBoard(int boardNo) throws SQLException;
+
+	void updateHit(int boardNo) throws SQLException;
+	
 	// 수정
-//	void updateBoard(int boardNo) throws SQLException;
-//	
+	void updateBoard(Board board) throws SQLException;
+
 //	// 삭제
-//	void deleteBoard(int boardNo) throws SQLException;
+	void deleteBoard(int boardNo) throws SQLException;
 //	
-//	// 상세
-//	Board selectBoardByNo(int boardNo) throws SQLException;
 }
