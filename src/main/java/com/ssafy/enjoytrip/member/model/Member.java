@@ -1,23 +1,28 @@
 package com.ssafy.enjoytrip.member.model;
 
 public class Member {
-	private String userId;
-	private String userPwd;
+	private String memberId;
+	private String memberPwd;
+	private String memberName;
 	private String email;
 	private String phone;
-	private String userName;
-	
-	public String getUserId() {
-		return userId;
+	public String getMemberId() {
+		return memberId;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
-	public String getUserPwd() {
-		return userPwd;
+	public String getMemberPwd() {
+		return memberPwd;
 	}
-	public void setUserPwd(String userPwd) {
-		this.userPwd = userPwd;
+	public void setMemberPwd(String memberPwd) {
+		this.memberPwd = memberPwd;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 	public String getEmail() {
 		return email;
@@ -31,10 +36,10 @@ public class Member {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getUserName() {
-		return userName;
+	@Override
+	public String toString() {
+		return "Member [memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberName=" + memberName + ", email="
+				+ email + ", phone=" + phone + "]";
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+	
 }
