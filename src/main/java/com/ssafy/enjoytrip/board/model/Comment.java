@@ -1,7 +1,8 @@
 package com.ssafy.enjoytrip.board.model;
 
 public class Comment {
-	private String userId;
+	private int commentNo;
+	private String memberId;
 	private int boardNo;
 	private String commentDate;
 	private String commentContent;
@@ -9,11 +10,18 @@ public class Comment {
 	private int commentLike;
 	private int sueCnt;
 	
-	public String getUserId() {
-		return userId;
+	public int getCommentNo() {
+		return commentNo;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setCommentNo(int commentNo) {
+		this.commentNo = commentNo;
+	}
+	
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 	public int getBoardNo() {
 		return boardNo;

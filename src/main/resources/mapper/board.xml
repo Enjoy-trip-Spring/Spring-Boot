@@ -69,4 +69,36 @@
 		 WHERE board_no = #{boardNo}
 	</delete>
 	
+	<!-- 
+		void insertComment(Comment comment) throws SQLException;
+
+		List<Comment> selectCommentByBoardId(int boardNo) throws SQLException;
+		
+		void deleteComment(int commentNo) throws SQLException;
+	 -->
+	
+	<resultMap type="comment" id="commentMap">
+		<result column="comment_no" property="commentNo" />
+		<result column="member_id" property="memberId" />
+		<result column="board_no" property="boardNo" />
+		<result column="comment_date" property="commentDate" />
+		<result column="comment_content" property="commentContent" />
+	</resultMap>
+	
+	<insert id="insertComment" parameterType="comment">
+		INSERT INTO board_comment (member_id, board_no, comment_date, comment_content)
+		VALUES (#{memberId}, #{boardNo}, now(), #{commentContent})
+	</insert>
+	
+	<select id="selectCommentByBoardId" parameterType="int" resultMap="commentMap">
+		SELECT comment_no, member_id, board_no, comment_date, comment_content
+		  FROM board_comment
+		 WHERE board_no = #{boardNo}
+		 ORDER BY comment_date
+	</select>
+	
+	<delete id="deleteComment" parameterType="int">
+		DELETE FROM board_comment
+		 WHERE comment_no = #{commentNo}
+	</delete>
 </mapper>	

@@ -32,5 +32,77 @@
 	<a href="${root}/board/list">글 목록</a>
 	<a href="${root}/board/modify/${board.boardNo}" id="modify">글 수정</a>
 	<a href="${root}/board/delete/${board.boardNo}" id="delete">글 삭제</a>
+
+	<div class="row">
+		<%-- <div>${userinfo.userId}</div> --%>
+		<div>
+			<textarea id="content" rows="5" cols="80"></textarea>
+		</div>
+		<div>
+			<button id="commentRegBtn">등록</button>
+		</div>
+	</div>
+
+	<div>
+		<ul id="commentUL">
+
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+    	let commentRegBtn = document.getElementById("commentRegBtn");
+    	commentRegBtn.addEventListener('click', function() {
+	    	let body = {
+	    		"boardNo" : "${board.boardNo}",
+	    		/* "memberId" : "${userinfo.memberId}", */
+	    		"memberId" : "1234",
+	    		"commentContent" : document.getElementById("content").value
+	    	};
+	    	let config = {
+	          method: "POST",
+	          headers: {
+	            "Content-Type": "application/json",
+	          },
+	          body: JSON.stringify(body),
+	        };
+	        fetch(`${root}/comment`, config)
+	          .then((response) => response.json())
+	          .then((data) => makeCommentList(data));
+    	});
+    
+    	function makeCommentList(list) {
+    		let html = "";
+    		for (let i = 0; i < list.length; i++) {
+    			let comment = list[i];
+    			html += `
+    			<li>
+    				<span>\${comment.commentNo}</span>
+    				<span>\${comment.commentContent}</span>
+    				<span>\${comment.memberId}</span>
+    				<span>\${comment.commentDate}</span>
+    				<span><a href="#1" onclick="commentDel(\${comment.commentNo})">삭제</a></span>
+    			</li>`;
+    		}
+    		document.getElementById("commentUL").innerHTML = html;
+    	}
+    	
+    	function commentDel(commentNo) {
+	        let config = {
+	          method: "DELETE",
+	          headers: {
+	            "Content-Type": "application/json",
+	          },
+	        };
+	        fetch("${root}/comment/${board.boardNo}/" + commentNo, config)
+	          .then((response) => response.json())
+	          .then((data) => makeCommentList(data));
+    	}
+    
+    	fetch("${root}/comment/${board.boardNo}")
+	    .then((response) => response.json())
+	    .then((data) => makeCommentList(data));
+    
+	</script>
+
 </body>
 </html>
