@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.member.model.mapper.MemberMapper">
+
+	<!-- int insertMember(Member member) throws SQLException; -->
+	<insert id="insertMember" parameterType="member">
+		insert into member(member_id, member_pwd, member_name, email, phone)
+		values(#{memberId}, #{memberPwd}, #{memberName}, #{email}, #{phone})
+	</insert>
+	
+	<resultMap type="member" id="memberMap">
+		<result column="member_id" property="memberId"/>
+		<result column="member_name" property="memberName"/>
+		<result column="email" property="email"/>
+		<result column="phone" property="phone"/>
+	</resultMap>
+	
+	<!-- Member loginCheckMember(Member member) throws SQLException; -->
+	<select id="loginCheckMember" parameterType="member" resultMap="memberMap">
+		select member_id, member_name, email, phone
+		from member
+		where member_id = #{memberId} and member_pwd = #{memberPwd}
+	</select>
+	
+	<!-- Member selectMemberInfo(String userId) throws SQLException; -->
+	<select id="selectMemberInfo" parameterType="member" resultMap="memberMap">
+		select member_id, member_name, email, phone
+		from member
+		where member_id = #{memberId}
+	</select>
+	
+	<!-- Member updateMemberInfo(Member member) throws SQLException; -->
+	<update id="updateMemberInfo" parameterType="member">
+		update member
+		set member_name = #{memberName},
+			email = #{email},
+			phone = #{phone}
+		where member_id = #{memberId}
+	</update>
+	
+</mapper>
