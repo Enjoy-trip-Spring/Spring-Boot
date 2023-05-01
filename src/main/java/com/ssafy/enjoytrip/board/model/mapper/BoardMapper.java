@@ -23,7 +23,7 @@ public interface BoardMapper {
 	// 수정
 	void updateBoard(Board board) throws SQLException;
 
-//	// 삭제
+	// 삭제
 	void deleteBoard(int boardNo) throws SQLException;
-//	
+	
 }
