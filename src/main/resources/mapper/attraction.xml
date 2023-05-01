@@ -20,12 +20,15 @@
 	</resultMap>
 
 	<!-- List<Attraction> selectAll() throws SQLException; -->
-	<select id="selectAll" resultMap="attractionMap">
+	<select id="selectAll" parameterType="attraction" resultMap="attractionMap">
 		select 	a.content_id, content_type_id, title, b.overview, 
 				addr1, tel, first_image, first_image2, 
 				sido_code, gugun_code, latitude, longitude
-		  from	attraction_info a, attraction_description b
-		 where	a.content_id = b.content_id
+		  from	attraction_info a join attraction_description b
+		    on	a.content_id = b.content_id
+		 where	title like concat('%',#{keyword},'%')
+		   and  content_type_id = #{contentTypeId}
+		   and  sido_code = #{sidoCode}
 	  order by	a.content_id
 	     limit	0, 100
 	</select>

@@ -10,6 +10,6 @@ import com.ssafy.enjoytrip.attraction.model.Attraction;
 @Mapper
 public interface AttractionMapper {
 
-	List<Attraction> selectAll() throws SQLException;
+	List<Attraction> selectAll(Attraction attraction) throws SQLException; 
 
 }
