@@ -16,6 +16,8 @@ public class Attraction {
 	private String latitude; // 위도
 	private String longitude; // 경도
 	
+	private String keyword; // 검색 키워드
+	
 	public int getContentId() {
 		return contentId;
 	}
@@ -88,12 +90,18 @@ public class Attraction {
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
-	
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 	@Override
 	public String toString() {
 		return "Attraction [contentId=" + contentId + ", contentTypeId=" + contentTypeId + ", title=" + title
 				+ ", overview=" + overview + ", addr1=" + addr1 + ", tel=" + tel + ", firstImage=" + firstImage
 				+ ", firstImage2=" + firstImage2 + ", sidoCode=" + sidoCode + ", gugunCode=" + gugunCode + ", latitude="
-				+ latitude + ", longitude=" + longitude + "]";
+				+ latitude + ", longitude=" + longitude + ", keyword=" + keyword + "]";
 	}
+	
 }

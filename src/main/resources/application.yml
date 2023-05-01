@@ -6,11 +6,12 @@ server:
   port: 80
 
 
-spring :
-  mvc : 
-    view :
-      prefix : /WEB-INF/views/
-      suffix : .jsp
+spring:
+  mvc: 
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+    static-path-pattern: /resources/static/**
 
 
 

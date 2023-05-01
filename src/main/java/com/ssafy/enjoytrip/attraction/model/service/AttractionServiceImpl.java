@@ -15,8 +15,8 @@ public class AttractionServiceImpl implements AttractionService {
 		this.attractionMapper = attractionMapper;
 	}
 	@Override
-	public List<Attraction> getAttractionList() throws Exception {
-		return attractionMapper.selectAll();
+	public List<Attraction> getAttractionList(Attraction attraction) throws Exception {
+		return attractionMapper.selectAll(attraction);
 	}
 
 	

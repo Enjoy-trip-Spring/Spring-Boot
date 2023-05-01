@@ -6,6 +6,6 @@ import com.ssafy.enjoytrip.attraction.model.Attraction;
 
 public interface AttractionService {
 
-	List<Attraction> getAttractionList() throws Exception;
+	List<Attraction> getAttractionList(Attraction attraction) throws Exception;
 
 }
