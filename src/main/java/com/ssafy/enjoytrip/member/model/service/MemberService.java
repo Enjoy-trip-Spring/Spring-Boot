@@ -12,4 +12,6 @@ public interface MemberService {
 
 	Member myPageModify(Member member) throws Exception;
 
+	void deleteMember(Member member) throws Exception;
+
 }

@@ -2,17 +2,20 @@ package com.ssafy.enjoytrip.member.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.enjoytrip.member.model.Member;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
 
-@Controller
+@RestController
 @RequestMapping("member")
 public class MemberController {
 	
@@ -25,10 +28,10 @@ public class MemberController {
 	 * 회원가입 페이지 이동
 	 * @return
 	 */
-	@GetMapping("signUp")
-	public String signUp() {
-		return "/member/signUp";
-	}
+//	@GetMapping("signUp")
+//	public String signUp() {
+//		return "/member/signUp";
+//	}
 	
 	/**
 	 * 회원가입 로직
@@ -37,24 +40,18 @@ public class MemberController {
 	 * @throws Exception 
 	 */
 	@PostMapping("signUp")
-	public String signUp(Member member) throws Exception {
-		//System.out.println(member);
+	public void signUp(Member member) throws Exception {
 		member = memberService.signUp(member);
-		if (member != null) {
-			return "redirect:/member/login";
-		} else {
-			return "redirect:/member/signUp";
-		}
 	}
 	
 	/**
 	 * 로그인 페이지 이동
 	 * @return
 	 */
-	@GetMapping("login")
-	public String login() {
-		return "/member/login";
-	}
+//	@GetMapping("login")
+//	public String login() {
+//		return "/member/login";
+//	}
 	
 	/**
 	 * 로그인 로직
@@ -64,14 +61,14 @@ public class MemberController {
 	 * @throws Exception 
 	 */
 	@PostMapping("login")
-	public String login(Member member, HttpSession session) throws Exception {
+	public ResponseEntity<Object> login(Member member, HttpSession session) throws Exception {
 		Member memberInfo = memberService.login(member);
 		System.out.println(memberInfo);
 		if (memberInfo != null) {
 			session.setAttribute("memberInfo", memberInfo);
-			return "redirect:/";
+			return new ResponseEntity<Object>(memberInfo, HttpStatus.OK);
 		} else {
-			return "redirect:/member/login";
+			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
 		}
 	}
 	
@@ -81,9 +78,8 @@ public class MemberController {
 	 * @return
 	 */
 	@GetMapping("logout")
-	public String logout(HttpSession session) {
+	public void logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/";
 	}
 	
 	/**
@@ -92,33 +88,33 @@ public class MemberController {
 	 * @throws Exception 
 	 */
 	@GetMapping("myPage")
-	public String myPage(HttpSession session, Model model) throws Exception {
+	public ResponseEntity<Object> myPage(HttpSession session, Model model) throws Exception {
 		Member member = (Member) session.getAttribute("memberInfo");
 		if (member == null) {
-			return "redirect:/member/login";
+			return new ResponseEntity<Object>(member, HttpStatus.OK);
 		}
 		String memberId = member.getMemberId();
 		member = memberService.getMemberInfo(memberId);
 		model.addAttribute("member", member);
-		return "/member/myPage";
+		return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
 	}
 	
-	/**
-	 * myPage에서 정보 수정 페이지로 이동
-	 * @param member
-	 * @return
-	 */
-	@GetMapping("myPageModify")
-	public String myPageModify(HttpSession session, Model model) throws Exception {
-		Member member = (Member) session.getAttribute("memberInfo");
-		if (member == null) {
-			return "redirect:/member/login";
-		}
-		String memberId = member.getMemberId();
-		member = memberService.getMemberInfo(memberId);
-		model.addAttribute("member", member);
-		return "/member/myPageModify";
-	}
+//	/**
+//	 * myPage에서 정보 수정 페이지로 이동
+//	 * @param member
+//	 * @return
+//	 */
+//	@GetMapping("myPageModify")
+//	public String myPageModify(HttpSession session, Model model) throws Exception {
+//		Member member = (Member) session.getAttribute("memberInfo");
+//		if (member == null) {
+//			return "redirect:/member/login";
+//		}
+//		String memberId = member.getMemberId();
+//		member = memberService.getMemberInfo(memberId);
+//		model.addAttribute("member", member);
+//		return "/member/myPageModify";
+//	}
 	
 
 	/**
@@ -126,14 +122,9 @@ public class MemberController {
 	 * @param member
 	 * @return
 	 */
-	@PostMapping("myPageModify")
-	public String myPageModify(Member member, Model model) throws Exception {
+	@PutMapping("myPage")
+	public void myPageModify(Member member) throws Exception {
 		member = memberService.myPageModify(member);
-		if (member != null) {
-			return "redirect:/member/myPage";			
-		} else {
-			return "redirect:/member/myPageModify";
-		}
 	}
 	
 	/**
@@ -141,9 +132,11 @@ public class MemberController {
 	 * @param member
 	 * @param session
 	 * @return
+	 * @throws Exception 
 	 */
 	@DeleteMapping("myPage")
-	public String myPage(Member member, HttpSession session) {
-		return "redirect:/";
+	public void myPage(Member member, HttpSession session) throws Exception {
+		session.invalidate();
+		memberService.deleteMember(member);
 	}
 }
