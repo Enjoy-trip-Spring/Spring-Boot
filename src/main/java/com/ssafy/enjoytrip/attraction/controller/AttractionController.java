@@ -37,7 +37,6 @@ public class AttractionController {
 		if (attraction.getSidoCode() == 0) attraction.setSidoCode(1);
 		if (attraction.getKeyword() == null) attraction.setKeyword("");		
 		System.out.println("[Controller] : " + attraction);
-		//ModelAndView mav = new ModelAndView();
 		return attractionService.getAttractionList(attraction);
 	} 
 
