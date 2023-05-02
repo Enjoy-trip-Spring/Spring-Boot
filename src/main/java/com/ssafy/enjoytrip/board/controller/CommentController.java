@@ -40,5 +40,4 @@ public class CommentController {
 	public List<Comment> listComment(@PathVariable int boardNo) throws Exception {
 		return boardService.listComment(boardNo);
 	}
-	
 }

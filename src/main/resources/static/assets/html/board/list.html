@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>글 목록</h1>
+	<table id="boardTable">
+		<tr>
+			<th>글 번호</th>
+			<th>제 목</th>
+			<th>작성자</th>
+			<th>조회수</th>
+			<th>작성 시간</th>
+		</tr>
+<!-- 		<c:forEach var="board" items="${list}">
+			<tr>
+				<td>${board.boardNo}</td>
+				detail page link
+				<td><a href="view/${board.boardNo}" class="boardTitle" />${board.boardTitle}</td>
+				<td>${board.memberId}</td>
+				<td>${board.hit}</td>
+				<td>${board.createDate}</td>
+			</tr>
+		</c:forEach> -->
+	</table>
+	
+	<script type="text/javascript">
+		let root = "pageContext.request.contextPath";
+		fetch(root + "/board/list")
+	    .then((response) => response.json())
+	    .then((data) => makeBoardList(data));
+		
+    	function makeBoardList(list) {
+    		console.dir(list);
+    		let html = "";
+    		for (let i = 0; i < list.length; i++) {
+    			let comment = list[i];
+    			html += `
+    			<tr>
+    				<td>\${board.boardNo}</td>
+    				<td><a href="view/${board.boardNo}" class="boardTitle" />${board.boardTitle}</td>
+    				<td>\${board.memberId}</td>
+    				<td>\${board.hit}</td>
+    				<td>\${board.createDate}</td>
+    			</tr>`;
+    		}
+    		document.getElementById("boardTable").innerHTML = html;
+    	}
+		
+/* 		let html = "";
+		html += `
+			<td>${board.boardNo}</td>
+			<td>${board.boardTitle}</td>
+			<td>${board.memberId}</td>
+			<td>${board.hit}</td>
+			<td>${board.boardContent}</td>
+			<td>${board.createDate}</td>
+		`;
+		document.getElementById("boardDetail").innerHTML = html;
+		
+		
+    	let commentRegBtn = document.getElementById("commentRegBtn");
+    	commentRegBtn.addEventListener('click', function() {
+	    	let body = {
+	    		"boardNo" : "${board.boardNo}",
+	    		"memberId" : "1234",
+	    		"commentContent" : document.getElementById("content").value
+	    	};
+	    	let config = {
+	          method: "POST",
+	          headers: {
+	            "Content-Type": "application/json",
+	          },
+	          body: JSON.stringify(body),
+	        };
+	        fetch(`${root}/comment`, config)
+	          .then((response) => response.json())
+	          .then((data) => makeCommentList(data));
+    	});
+    
+    	function makeCommentList(list) {
+    		let html = "";
+    		for (let i = 0; i < list.length; i++) {
+    			let comment = list[i];
+    			html += `
+    			<li>
+    				<span>\${comment.commentNo}</span>
+    				<span>\${comment.commentContent}</span>
+    				<span>\${comment.memberId}</span>
+    				<span>\${comment.commentDate}</span>
+    				<span><a href="#1" onclick="commentDel(\${comment.commentNo})">삭제</a></span>
+    			</li>`;
+    		}
+    		document.getElementById("commentUL").innerHTML = html;
+    	}
+    	
+    	function commentDel(commentNo) {
+	        let config = {
+	          method: "DELETE",
+	          headers: {
+	            "Content-Type": "application/json",
+	          },
+	        };
+	        fetch("${root}/comment/${board.boardNo}/" + commentNo, config)
+	          .then((response) => response.json())
+	          .then((data) => makeCommentList(data));
+    	} */
+    
+    	
+    
+	</script>
+</body>
+</html>
