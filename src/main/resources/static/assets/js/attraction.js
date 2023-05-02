@@ -34,11 +34,11 @@ function makeList(trips) {
     positions = [];
     trips.forEach((list) => {
         tripList += `
-        <div class="item">
-            <div class="item-img" onclick="moveCenter(${list.latitude}, ${list.longitude});">
+        <div class="item" onclick="moveCenter(${list.latitude}, ${list.longitude}, this);">
+            <div class="item-img">
             	<img src="${list.firstImage}" width="200px" >
             </div class="">
-            <div class="item-content" onclick="showOverview(this)">
+            <div class="item-content">
 	            <div class="item-content-title">${list.title}</div>
 	            <div class="item-content-address">${list.addr1}</div>
 	            <div class="item-content-overview">${list.overview}</div>
@@ -60,16 +60,48 @@ function makeList(trips) {
 function showOverview(target) {
 	let modal = document.querySelector('#overview');
 	let innerEl = document.querySelector('#overview-inner');
+	//let overviewEl = document.querySelector('.item-content-overview');
 	let body = document.querySelector('body');
 	modal.style.display = 'block';
 	body.style.overflow = 'hidden';
 	
 	innerEl.innerHTML = target.innerHTML;
+	innerEl.style.padding = '5px';
+	
+	let imgFrame = innerEl.querySelector('.item-img');
+	let imgEl = innerEl.querySelector('.item-img>img');
+	let contentEl = innerEl.querySelector('.item-content');
+	let titleEl = innerEl.querySelector('.item-content-title');
+	let addressEl = innerEl.querySelector('.item-content-address');
+	let overviewEl = innerEl.querySelector('.item-content-overview');
+	console.dir(overviewEl);
+	console.dir(overviewEl.style.textOverflow);
+
+	imgFrame.style.float = 'left';
+	
+	imgEl.style.width = '200px';
+	imgEl.style.height = '200px';
+	
+	contentEl.style.width = '380px';
+	contentEl.style.height = '380px';
+	
+	titleEl.style.width = '380px';
+	addressEl.style.width = '380px';
+
+	overviewEl.style.width = '380px';
+	overviewEl.style.height = '330px';
+	overviewEl.style.borderTop = '3px dashed black';
+	overviewEl.style.overflow = 'auto';
+	overviewEl.style.textOverflow = 'clip';
+	overviewEl.style.whiteSpace = 'break-spaces';
+	
+	
 	
 	document.addEventListener('mouseup', (e) => {
 		if (!innerEl.contains(e.target)) {
 			modal.style.display = 'none';
 			body.style.overflow = 'auto';
+			//overviewEl.style.overflow = 'hidden';
 		}
 	});
 }
@@ -143,8 +175,10 @@ function displayMarker() {
     map.setCenter(positions[0].latlng);
     }
 
-    function moveCenter(lat, lng) {
+    function moveCenter(lat, lng, target) {
         map.setCenter(new kakao.maps.LatLng(lat, lng));
+        console.dir(target.innerHTML);
+        showOverview(target);
     }
 
 // 마커 이미지를 생성합니다
