@@ -40,4 +40,10 @@
 		where member_id = #{memberId}
 	</update>
 	
+	<!-- void deleteMember(Member member) throws SQLException; -->
+	<delete id="deleteMember" parameterType="member">
+		delete from member 
+		where member_id = #{memberId}
+	</delete>
+	
 </mapper>
